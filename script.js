@@ -34,4 +34,8 @@ function getUserChoice() {
 }
 
 // Initialize score
+
+let cpuScore = 0;
+let userScore = 0;
+
 // Play rounds (best of 5), update score
