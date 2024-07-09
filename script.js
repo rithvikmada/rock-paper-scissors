@@ -36,7 +36,7 @@ function getUserChoice() {
     return userChoice;
 }
 
-// Initialize score
+// Check if either player has score of 3 to stop game
 
 let cpuScore = 0;
 let userScore = 0;
@@ -45,17 +45,27 @@ while (cpuScore < 3 && userScore < 3) {
     playRound(getComputerChoice(), getUserChoice());
 }
 
-(cpuScore == 3) 
+(cpuScore == 3)  // Winning message
     ? console.log(`CPU wins the game ${cpuScore}-${userScore}`)
     : console.log(`User wins the game ${userScore}-${cpuScore}`);
 
 // Play rounds (best of 5), update score
 
-// Check if either player has score of 3 
-//
-
 function playRound(cpu, user) {
-    console.log(cpu);
-    console.log(user)
-    cpuScore++;
+
+    if (
+    cpu == "ROCK" && user == "SCISSORS" ||
+    cpu == "PAPER" && user == "ROCK" ||
+    cpu == "SCISSORS" && user == "PAPER") {
+        cpuScore++;
+        console.log(`CPU chooses ${cpu}, User chooses ${user}`)
+        console.log(`CPU wins round; CPU - ${cpuScore}, USER - ${userScore}`);
+    } else if (cpu === user) {
+        console.log(`Nobody wins!; USER - ${userScore}, CPU - ${cpuScore}`)
+    } else {
+        userScore++;
+        console.log(`CPU chooses ${cpu}, User chooses ${user}`)
+        console.log(`User wins round; USER - ${userScore}, CPU - ${cpuScore}`);
+    }
+
 }
