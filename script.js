@@ -33,12 +33,15 @@ function getUserChoice() {
     else if (userChoice == "S") userChoice = "SCISSORS";
     else userChoice = userChoice;
 
-    return userChoice;
+    if (userChoice !== "ROCK" && userChoice !== "PAPER" && userChoice !== "SCISSORS") {   // Invalid entry check
+        console.log("Invalid choice. Try again bozo, it's not that hard.");
+        return getUserChoice();
+    } else return userChoice;
 }
 
 // Check if either player has score of 3 to stop game
 
-let cpuScore = 0;
+let cpuScore = 0; 
 let userScore = 0;
 
 while (cpuScore < 3 && userScore < 3) {
