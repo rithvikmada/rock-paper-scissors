@@ -26,14 +26,17 @@ let userChoice;   // Initialize variable
 
 function getUserChoice() {
 
-    userChoice = (prompt("Choose Rock, Paper, or Scissors (word or first letter)")).toUpperCase(); 
+    userChoice = (prompt("Choose Rock, Paper, or Scissors (word or first letter)")
+                 ).toUpperCase(); 
 
     if (userChoice == "R") userChoice = "ROCK";   // Logic for single-character entry
     else if (userChoice == "P") userChoice = "PAPER";
     else if (userChoice == "S") userChoice = "SCISSORS";
     else userChoice = userChoice;
 
-    if (userChoice !== "ROCK" && userChoice !== "PAPER" && userChoice !== "SCISSORS") {   // Invalid entry check
+    // Invalid entry check
+
+    if (userChoice !== "ROCK" && userChoice !== "PAPER" && userChoice !== "SCISSORS") {
         console.log("Invalid choice. Try again bozo, it's not that hard.");
         return getUserChoice();
     } else return userChoice;
