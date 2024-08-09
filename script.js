@@ -1,77 +1,66 @@
-// Get computer's choice
-
-let cpuChoice;   // Initialize variable
-
-function getComputerChoice() {
-    
-    let cpuNum = Math.floor(Math.random() * 3);   // Get number between 0-2
-
-    if (cpuNum == 0) {    // Assign number to choice
-        cpuChoice = "ROCK";
-    }
-    else if (cpuNum == 1) {
-        cpuChoice = "PAPER";
-    }
-    else {
-        cpuChoice = "SCISSORS";
-    }
-
-    return cpuChoice;
-
-}
-
-// Get user's choice
-
-let userChoice;   // Initialize variable
-
-function getUserChoice() {
-
-    userChoice = (prompt("Choose Rock, Paper, or Scissors (word or first letter)")
-                 ).toUpperCase(); 
-
-    if (userChoice == "R") userChoice = "ROCK";   // Logic for single-character entry
-    else if (userChoice == "P") userChoice = "PAPER";
-    else if (userChoice == "S") userChoice = "SCISSORS";
-    else userChoice = userChoice;
-
-    // Invalid entry check
-
-    if (userChoice !== "ROCK" && userChoice !== "PAPER" && userChoice !== "SCISSORS") {
-        console.log("Invalid choice. Try again bozo, it's not that hard.");
-        return getUserChoice();
-    } else return userChoice;
-}
-
-// Check if either player has score of 3 to stop game
-
+let cpuChoice;      // Initialize variables
 let cpuScore = 0; 
 let userScore = 0;
 
-while (cpuScore < 3 && userScore < 3) {
-    playRound(getComputerChoice(), getUserChoice());
-}
+const rockBtn = document.querySelector("#rock");        // Initialize selectors
+const paperBtn = document.querySelector("#paper");
+const scissorsBtn = document.querySelector("#scissors");
 
-(cpuScore == 3)  // Winning message
-    ? console.log(`CPU wins the game ${cpuScore}-${userScore}`)
-    : console.log(`User wins the game ${userScore}-${cpuScore}`);
+rockBtn.addEventListener("click", () => checkScore("ROCK"));        // Add "click" event listener
+paperBtn.addEventListener("click", () => checkScore("PAPER"));
+scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
 
-// Play rounds (best of 5), update score
+    function checkScore(userChoice) {       // Checks if score of 3 is met
 
-function playRound(cpu, user) {
+        if (cpuScore < 3 && userScore < 3) {
+            playRound(getComputerChoice(), userChoice);
+        }
+       
+        if (cpuScore == 3) {
+            console.log(`CPU wins the game ${cpuScore}-${userScore}`);
+            userScore = 0;
+            cpuScore = 0;
+        } else if (userScore == 3) {
+            console.log(`User wins the game ${userScore}-${cpuScore}`);
+            userScore = 0;
+            cpuScore = 0;
+        }
 
-    if (
-    cpu == "ROCK" && user == "SCISSORS" ||
-    cpu == "PAPER" && user == "ROCK" ||
-    cpu == "SCISSORS" && user == "PAPER") {
-        cpuScore++;
-        console.log(`CPU chooses ${cpu}, User chooses ${user}`)
-        console.log(`CPU wins round; CPU - ${cpuScore}, USER - ${userScore}`);
-    } else if (cpu === user) {
-        console.log(`Nobody wins!; USER - ${userScore}, CPU - ${cpuScore}`)
-    } else {
-        userScore++;
-        console.log(`CPU chooses ${cpu}, User chooses ${user}`)
-        console.log(`User wins round; USER - ${userScore}, CPU - ${cpuScore}`);
     }
 
-}
+    function getComputerChoice() {      // Assign random choice for CPU each round
+    
+        let cpuNum = Math.floor(Math.random() * 3);   
+    
+        if (cpuNum == 0) {    
+            cpuChoice = "ROCK";
+        }
+        else if (cpuNum == 1) {
+            cpuChoice = "PAPER";
+        }
+        else {
+            cpuChoice = "SCISSORS";
+        }
+    
+        return cpuChoice;
+    
+    }
+
+    function playRound(cpu, user) {     // Game logic
+ 
+        if (
+        cpu == "ROCK" && user == "SCISSORS" ||
+        cpu == "PAPER" && user == "ROCK" ||
+        cpu == "SCISSORS" && user == "PAPER") {
+            cpuScore++;
+            console.log(`CPU chooses ${cpu}, User chooses ${user}`)
+            console.log(`CPU wins round; CPU - ${cpuScore}, USER - ${userScore}`);
+        } else if (cpu === user) {
+            console.log(`Nobody wins!; USER - ${userScore}, CPU - ${cpuScore}`)
+        } else {
+            userScore++;
+            console.log(`CPU chooses ${cpu}, User chooses ${user}`)
+            console.log(`User wins round; USER - ${userScore}, CPU - ${cpuScore}`);
+        }
+    
+    }
