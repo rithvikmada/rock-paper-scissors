@@ -6,6 +6,14 @@ const rockBtn = document.querySelector("#rock");        // Initialize selectors
 const paperBtn = document.querySelector("#paper");
 const scissorsBtn = document.querySelector("#scissors");
 
+const message = document.querySelector("#message");
+const decisionMessage = document.querySelector("#decisionMessage");
+const winnerMessage = document.querySelector("#winnerMessage");
+
+const scores = document.querySelector("#scores")
+const userScoreMessage = document.querySelector("#userScoreMessage");
+const cpuScoreMessage = document.querySelector("#cpuScoreMessage");
+
 rockBtn.addEventListener("click", () => checkScore("ROCK"));        // Add "click" event listener
 paperBtn.addEventListener("click", () => checkScore("PAPER"));
 scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
@@ -53,14 +61,21 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         cpu == "PAPER" && user == "ROCK" ||
         cpu == "SCISSORS" && user == "PAPER") {
             cpuScore++;
-            console.log(`CPU chooses ${cpu}, User chooses ${user}`)
-            console.log(`CPU wins round; CPU - ${cpuScore}, USER - ${userScore}`);
+            decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
+            winnerMessage.textContent = `CPU WINS ROUND!`;
+            userScoreMessage.textContent = `USER: ${userScore}`;
+            cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
         } else if (cpu === user) {
-            console.log(`Nobody wins!; USER - ${userScore}, CPU - ${cpuScore}`)
+            decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
+            winnerMessage.textContent = `NOBODY WINS!`
+            userScoreMessage.textContent = `USER: ${userScore}`;
+            cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
         } else {
             userScore++;
-            console.log(`CPU chooses ${cpu}, User chooses ${user}`)
-            console.log(`User wins round; USER - ${userScore}, CPU - ${cpuScore}`);
+            decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
+            winnerMessage.textContent = `USER WINS ROUND!`;
+            userScoreMessage.textContent = `USER: ${userScore}`;
+            cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
         }
     
     }
