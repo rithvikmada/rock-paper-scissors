@@ -1,6 +1,7 @@
 let cpuChoice;      // Initialize variables
 let cpuScore = 0; 
 let userScore = 0;
+let roundNumber = 0;
 
 const rockBtn = document.querySelector("#rock");        // Initialize selectors
 const paperBtn = document.querySelector("#paper");
@@ -13,6 +14,8 @@ const winnerMessage = document.querySelector("#winnerMessage");
 const scores = document.querySelector("#scores")
 const userScoreMessage = document.querySelector("#userScoreMessage");
 const cpuScoreMessage = document.querySelector("#cpuScoreMessage");
+
+const roundLog = document.querySelector("#roundLog");
 
 rockBtn.addEventListener("click", () => checkScore("ROCK"));        // Add "click" event listener
 paperBtn.addEventListener("click", () => checkScore("PAPER"));
@@ -28,10 +31,12 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
             console.log(`CPU wins the game ${cpuScore}-${userScore}`);
             userScore = 0;
             cpuScore = 0;
+            roundNumber = 0;
         } else if (userScore == 3) {
             console.log(`User wins the game ${userScore}-${cpuScore}`);
             userScore = 0;
             cpuScore = 0;
+            roundNumber = 0;
         }
 
     }
@@ -60,22 +65,35 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         cpu == "ROCK" && user == "SCISSORS" ||
         cpu == "PAPER" && user == "ROCK" ||
         cpu == "SCISSORS" && user == "PAPER") {
+            
+            roundNumber++;
             cpuScore++;
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
             winnerMessage.textContent = `CPU WINS ROUND!`;
             userScoreMessage.textContent = `USER: ${userScore}`;
             cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
+
+            let logMessage = document.createElement("h6");
+            logMessage.textContent = `Round ${roundNumber}: CPU won round (${cpu} vs. ${user})`;
+            roundLog.insertBefore(logMessage, roundLog.firstElementChild);
+
         } else if (cpu === user) {
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
             winnerMessage.textContent = `NOBODY WINS!`
             userScoreMessage.textContent = `USER: ${userScore}`;
             cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
+
         } else {
+            roundNumber++;
             userScore++;
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
             winnerMessage.textContent = `USER WINS ROUND!`;
             userScoreMessage.textContent = `USER: ${userScore}`;
             cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
+
+            let logMessage = document.createElement("h6");
+            logMessage.textContent = `Round ${roundNumber}: User won round (${user} vs. ${cpu})`;
+            roundLog.insertBefore(logMessage, roundLog.firstElementChild);
         }
     
     }
