@@ -27,33 +27,27 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
     function checkScore(userChoice) {       // Checks if score of 3 is met
 
         if (cpuScore < 3 && userScore < 3) {
-            
             addContent();
             playRound(getComputerChoice(), userChoice);
+        } 
         
-        } if (cpuScore == 3) {
-
-            message.innerHTML = "";
-            scores.innerHTML = "";
-            body.insertBefore(alert, roundLog);
+        if (cpuScore == 3) {
+            removeContent();
             alert.textContent = `CPU WINS THE GAME! ${cpuScore}-${userScore}`;
 
             userScore = 0;
             cpuScore = 0;
             roundNumber = 0;
+        } 
         
-        } else if (userScore == 3) {
-        
-            message.innerHTML = "";
-            scores.innerHTML = "";
-            body.insertBefore(alert, roundLog);
+        else if (userScore == 3) {
+            removeContent();
             alert.textContent = `USER WINS THE GAME! ${userScore}-${cpuScore}`;
 
             userScore = 0;
             cpuScore = 0;
             roundNumber = 0;
         }
-
     }
 
     function getComputerChoice() {      // Assign random choice for CPU each round
@@ -63,15 +57,16 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         if (cpuNum == 0) {    
             cpuChoice = "ROCK";
         }
+
         else if (cpuNum == 1) {
             cpuChoice = "PAPER";
         }
+
         else {
             cpuChoice = "SCISSORS";
         }
     
         return cpuChoice;
-    
     }
 
     function playRound(cpu, user) {     // Game logic
@@ -80,7 +75,6 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         cpu == "ROCK" && user == "SCISSORS" ||
         cpu == "PAPER" && user == "ROCK" ||
         cpu == "SCISSORS" && user == "PAPER") {
-            
             roundNumber++;
             cpuScore++;
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
@@ -91,14 +85,16 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
             let logMessage = document.createElement("h6");
             logMessage.textContent = `Round ${roundNumber}: CPU won round (${cpu} vs. ${user})`;
             roundLog.insertBefore(logMessage, roundLog.firstElementChild);
-
-        } else if (cpu === user) {
+        } 
+        
+        else if (cpu === user) {
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
             winnerMessage.textContent = `NOBODY WINS!`
             userScoreMessage.textContent = `USER: ${userScore}`;
             cpuScoreMessage.textContent = `CPU: ${cpuScore}`;
-
-        } else {
+        } 
+        
+        else {
             roundNumber++;
             userScore++;
             decisionMessage.textContent = `CPU chooses ${cpu}, User chooses ${user}`;
@@ -110,14 +106,18 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
             logMessage.textContent = `Round ${roundNumber}: User won round (${user} vs. ${cpu})`;
             roundLog.insertBefore(logMessage, roundLog.firstElementChild);
         }
-    
     }
 
-    function addContent() {
-        
+    function addContent() { 
         alert.innerHTML = "";
         message.appendChild(decisionMessage);
         message.appendChild(winnerMessage);
         scores.appendChild(userScoreMessage);
         scores.appendChild(cpuScoreMessage);
+    }
+
+    function removeContent() {
+        message.innerHTML = "";
+        scores.innerHTML = "";
+        body.insertBefore(alert, roundLog);
     }
