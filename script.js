@@ -20,18 +20,23 @@ const roundLog = document.querySelector("#roundLog");
 const body = document.querySelector("body");
 const alert = document.createElement("h1");
 
-rockBtn.addEventListener("click", () => checkScore("ROCK"));        // Add "click" event listener
+rockBtn.addEventListener("click", () => checkScore("ROCK"));        // Add "click" event listeners
 paperBtn.addEventListener("click", () => checkScore("PAPER"));
 scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
 
     function checkScore(userChoice) {       // Checks if score of 3 is met
 
         if (cpuScore < 3 && userScore < 3) {
+            
+            if (userScore == 0 && cpuScore == 0) {      // Remove logMessage nodes at start of new game
+                roundLog.innerHTML = "";
+             }
+            
             addContent();
             playRound(getComputerChoice(), userChoice);
         } 
         
-        if (cpuScore == 3) {
+        if (cpuScore == 3) {        // Print game winner in DOM
             removeContent();
             alert.textContent = `CPU WINS THE GAME! ${cpuScore}-${userScore}`;
 
@@ -108,7 +113,7 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         }
     }
 
-    function addContent() { 
+    function addContent() {         // Remove "alert" node; append "message" and "scores"
         alert.innerHTML = "";
         message.appendChild(decisionMessage);
         message.appendChild(winnerMessage);
@@ -116,7 +121,7 @@ scissorsBtn.addEventListener("click", () => checkScore("SCISSORS"));
         scores.appendChild(cpuScoreMessage);
     }
 
-    function removeContent() {
+    function removeContent() {      // Remove "message" and "scores" node; append "alert"
         message.innerHTML = "";
         scores.innerHTML = "";
         body.insertBefore(alert, roundLog);
